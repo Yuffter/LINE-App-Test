@@ -23,7 +23,7 @@ jobs:
       - name: Build HTML (optional)
         run: |
           mkdir -p dist
-          cp -r html/* dist/
+          cp -r webApp/* dist/
 
       # GitHub Pages にデプロイ
       - name: Deploy to GitHub Pages
