@@ -35,6 +35,7 @@ export default async function handler(req, res) {
         });
         }
     }
+    // テスト
 
     res.status(200).send('OK');
 }
