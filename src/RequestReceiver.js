@@ -7,7 +7,7 @@ function doPost(e) {
         "longitude": -122.4194,
     }
     {
-        "action": SetSettings,
+        "action": "SetSettings",
         "data" : ""
     }
     */
@@ -15,12 +15,19 @@ function doPost(e) {
     const action = data.action;
 
     /* actionの値によって呼び出す関数を切り替える */
+    
 }
 
-function updateUserLocation() {
-
+/*
+ユーザの現在の座標をスプレッドシートに更新する関数
+*/
+function updateUserLocation(data) {
+    
 }
 
-function setSettings() {
-
+/*
+設定をスプレッドシートに保存する関数
+*/
+function setSettings(data) {
+    
 }

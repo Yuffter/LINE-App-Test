@@ -1,0 +1,8 @@
+class TemperatureEvaluator {
+    /*
+    
+    */
+    static evaluate() {
+
+    }
+}
