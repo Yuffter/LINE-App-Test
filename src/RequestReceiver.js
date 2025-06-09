@@ -13,6 +13,8 @@ function doPost(e) {
     */
     const data = JSON.parse(e.postData.contents);
     const action = data.action;
+
+    /* actionの値によって呼び出す関数を切り替える */
 }
 
 function updateUserLocation() {

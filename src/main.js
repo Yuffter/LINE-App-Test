@@ -1,8 +1,8 @@
 function main() {
-  Main.main();
+  Mediator.main();
 }
 
-class Main {
+class Mediator {
   static main() {
     console.log("エントリーポイントが呼ばれました");
   }

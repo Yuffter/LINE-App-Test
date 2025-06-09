@@ -1,21 +1,26 @@
 ```mermaid
 classDiagram
     SensorData --> RemoClient
-    RemoClient --> Main
-    SpreadSheetService --> Main
+    RemoClient --> Mediator
+    SpreadSheetService --> Mediator
     LINEReceiver --> RequestReceiver
     SpreadSheetService --> RequestReceiver
-    DistanceCalculator --> Main
-    class SpreadSheetService {
-        - sheet : 特定のシート
-        + SpreadSheetService(spreadsheetId, sheetName) void
-        + readData(cellAddress) array
-        + writeData(cellAddress, values) void
+    DistanceCalculator --> Mediator
+    Config --> Mediator
+    GASTrigger --> Mediator
+    LINESender --> Mediator
+    namespace utils {
+        class SpreadSheetService {
+            - sheet : 特定のシート
+            + constructor(sheetId, sheetName) void
+            + readData(cellAddress) array
+            + writeData(cellAddress, values) void
+    }
     }
     class RemoClient {
         - ACCESS_TOKEN: str
-        + RemoClient(token) void
-        + fetchSensorData() SensorData
+        + constructor(token) void
+        + getSensorData() SensorData
         + sendSignal(不明) void
     }
     class SensorData {
@@ -26,11 +31,13 @@ classDiagram
         <<webhook>>
         + handle(req, res) void
     }
-    class Main {
-        <<主要プログラムのEntryPoint>>
+    class Mediator {
+        <<主要プログラムの仲介役>>
         - remoClient : RemoClient
         - spreadSheetService : SpreadSheetService
-        + static main() void
+        + constructor() void
+        + Mediator() void
+        + SendLine() : void
     }
     class RequestReceiver {
         <<GAS APIを受け取る窓口>>
@@ -41,12 +48,21 @@ classDiagram
     }
     class LINESender {
         - ACCESS_TOKEN
-        send(content) : void
+        + sendMessage(to, content) void
     }
     class Config {
-        
+        + GAS_ACCESS_TOKEN : str
+        + LINE_ACCESS_TOKEN : str
+        + SHEET_ID : str
+        + SHEET_NAME : str
     }
-    class DistanceCalculator {
-        calculate(lat1, lon1, lat2, lon2) number
+    namespace utils {
+        class DistanceCalculator {
+        + static calculate(lat1, lon1, lat2, lon2) number
+        }
+    }
+    class GASTrigger {
+        <<Trigger>>
+        + evaluateTemperature() void
     }
 ```
