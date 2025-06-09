@@ -6,22 +6,45 @@ class Config {
     /*
     GASのプロパティサービスを使用して、スクリプトプロパティからremoのアクセストークンを取得する
     */
-    get REMO_ACESS_TOKEN() {
+    static get REMO_ACESS_TOKEN() {
         return PropertiesService.getScriptProperties().getProperty('REMO_ACCESS_TOKEN');
     }
 
     /*
     GASのプロパティサービスを使用して、スクリプトプロパティからLINEのアクセストークンを取得する
     */
-    get LINE_ACCESS_TOKEN() {
+    static get LINE_ACCESS_TOKEN() {
         return PropertiesService.getScriptProperties().getProperty('LINE_ACCESS_TOKEN');
     }
 
-    get SHEET_ID() {
+    static get SHEET_ID() {
         return PropertiesService.getScriptProperties().getProperty('SHEET_ID');
     }
 
-    get SHEET_NAME() {
-        return PropertiesService.getScriptProperties().getProperty('SHEET_NAME');
+    /*
+    ユーザデータを格納するスプレッドシート名
+    */
+    static get USER_SHEET_NAME() {
+        return "User";
+    }
+
+    /*
+    Remoデータを格納するスプレッドシート名
+    */
+    static get REMO_SHEET_NAME() {
+        return "Remo";
+    }
+
+    static get USER_LATITUDE_CELL_ADDRESS() {
+        return "B1";
+    }
+    static get USER_LONGITUDE_CELL_ADDRESS() {
+        return "B2";
+    }
+    static get REMO_LATITUDE_CELL_ADDRESS() {
+        return "B1";
+    }
+    static get REMO_LONGITUDE_CELL_ADDRESS() {
+        return "B2";
     }
 }

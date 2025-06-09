@@ -1,9 +1,16 @@
-function main() {
-  Mediator.main();
+/*
+GASのトリガーで定期的に呼ばれる関数
+*/
+function gasTrigger() {
+  calculateDistance();
+
+  CheckRoomTemperature();
 }
 
-class Mediator {
-  static main() {
-    console.log("エントリーポイントが呼ばれました");
-  }
+function calculateDistance() {
+  console.log("calculateDistance called");
+}
+
+function CheckRoomTemperature() {
+  console.log("CheckRoomTemperature called");
 }

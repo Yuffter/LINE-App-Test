@@ -1,14 +1,14 @@
 ```mermaid
 classDiagram
     SensorData --> RemoClient
-    RemoClient --> Mediator
-    SpreadSheetService --> Mediator
+    RemoClient --> Main
+    SpreadSheetService --> Main
     LINEReceiver --> RequestReceiver
     SpreadSheetService --> RequestReceiver
-    DistanceCalculator --> Mediator
-    Config --> Mediator
-    GASTrigger --> Mediator
-    LINESender --> Mediator
+    DistanceCalculator --> Main
+    Config --> Main
+    LINESender --> Main
+    TemperatureEvaluator --> Main
     namespace utils {
         class SpreadSheetService {
             - sheet : 特定のシート
@@ -31,13 +31,11 @@ classDiagram
         <<webhook>>
         + handle(req, res) void
     }
-    class Mediator {
+    class Main {
         <<主要プログラムの仲介役>>
-        - remoClient : RemoClient
-        - spreadSheetService : SpreadSheetService
-        + constructor() void
-        + Mediator() void
-        + SendLine() : void
+        + gasTrigger() void
+        + calculateDistance() void
+        + checkRoomTemperature() void
     }
     class RequestReceiver {
         <<GAS APIを受け取る窓口>>
@@ -61,8 +59,9 @@ classDiagram
         + static calculate(lat1, lon1, lat2, lon2) number
         }
     }
-    class GASTrigger {
-        <<Trigger>>
-        + evaluateTemperature() void
+    namespace utils {
+        class TemperatureEvaluator {
+            static evaluate() number
+        }
     }
 ```
