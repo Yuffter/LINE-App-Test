@@ -9,7 +9,17 @@ class RemoClient {
     https://api.nature.global/1/devicesを使用
     */
     getSensorData() {
+        const latitude = spreadSheetService.readData( REMO_LATITUDE_CELL_ADDRESS() )
+        const longitude = spreadSheetService.readData( REMO_LONGITUDE_CELL_ADDRESS() )
+        const temperature = spreadSheetService.readData( REMO_TENPERATURE_CELL_ADDRESS() )
+        const humidity = spreadSheetService.readData( REMO_HUMIDITY_CELL_ADDRESS() )
 
+        return {
+            latitude: latitude,
+            longitude: longitude,
+            temperature: temperature,
+            humidity: humidity
+        };
     }
 
     /*
