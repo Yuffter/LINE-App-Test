@@ -32,6 +32,7 @@ async function judgeContent(replyToken, text) {
         if (text.startsWith('set dist')) {
             const distance = text.split(' ')[2];
             if (!isNaN(distance)) {
+                sendData('SetDistance', { distance: parseFloat(distance) });
                 return await replyMessage(replyToken, `距離を${distance}メートルに設定しました。`);
             } else {
                 return await replyMessage(replyToken, '距離の値が不正です。数値を入力してください。');
@@ -42,6 +43,7 @@ async function judgeContent(replyToken, text) {
         if (text.startsWith('set temp')) {
             const temperature = text.split(' ')[2];
             if (!isNaN(temperature)) {
+                sendData('SetTemperature', { temperature: parseFloat(temperature) });
                 return await replyMessage(replyToken, `温度を${temperature}度に設定しました。`);
             } else {
                 return await replyMessage(replyToken, '温度の値が不正です。数値を入力してください。');
@@ -80,4 +82,24 @@ async function replyMessage(replyToken, message) {
         console.error('LINE API error:', error);
         throw error;
     }
+}
+
+async function sendData(actionType, data) {
+    const url = 'https://script.google.com/macros/s/AKfycbwm87Cgtw-vFYlUQzsKBvvzfrhmNvrsnOjPbqDX1sRq9PqKkBnRT1IWeHNtCZGffwCh/exec';
+
+    const data = {
+        "action": actionType,
+        "data": data,
+    };
+
+    return await fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.error(error));
 }
