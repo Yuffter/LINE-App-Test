@@ -86,7 +86,7 @@ async function replyMessage(replyToken, message) {
 async function sendData(actionType, data) {
     const url = 'https://script.google.com/macros/s/AKfycbwm87Cgtw-vFYlUQzsKBvvzfrhmNvrsnOjPbqDX1sRq9PqKkBnRT1IWeHNtCZGffwCh/exec';
 
-    const data = {
+    const dataa = {
     "action": "UpdateUserLocation",
     "latitude": 37.7749,
     "longitude": -122.4194,
@@ -97,7 +97,7 @@ async function sendData(actionType, data) {
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(dataa)
     })
     .then(response => response.text())
     .then(result => console.log(result))
