@@ -9,18 +9,32 @@ class RemoClient {
     https://api.nature.global/1/devicesを使用
     */
     getSensorData() {
-        const latitude = spreadSheetService.readData( REMO_LATITUDE_CELL_ADDRESS() )
-        const longitude = spreadSheetService.readData( REMO_LONGITUDE_CELL_ADDRESS() )
-        const temperature = spreadSheetService.readData( REMO_TEMPERATURE_CELL_ADDRESS() )
-        const humidity = spreadSheetService.readData( REMO_HUMIDITY_CELL_ADDRESS() )
+        const REMO_ACCESS_TOKEN = 'YOUR_ACCESS_TOKEN_HERE';  // トークンは安全に管理するのが望ましい
 
-        return {latitude, longitude, temperature, humidity};
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + REMO_ACCESS_TOKEN
+        };
+
+        const options = {
+            method: "get",
+            headers: headers
+        };
+
+        const response = UrlFetchApp.fetch("https://api.nature.global/1/devices", options);
+        const deviceData = JSON.parse(response.getContentText());
+
+        const temperature = deviceData[0].newest_events.te.val;
+        const humidity = deviceData[0].newest_events.hu.val;
+
+        let sensorData = new SensorData(temperature, humidity)
+        return sensorData;
     }
 
     /*
     Nature Remo APIを使用してエアコンの操作を行うメソッド
     */
     sendSignal() {
-
+        
     }
 }
