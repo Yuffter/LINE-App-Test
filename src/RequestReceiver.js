@@ -16,14 +16,7 @@ function doPost(e) {
     const action = data.action;
 
     /* actionの値によって呼び出す関数を切り替える */
-    if (action == "UpdateUserLocation") {
-        updateUserLocation(data);
-    }
-    else if (action == "SetSettings") {
-        setSettings(data);
-    } else {
-        throw new Error("Unknown action: " + action);
-    }
+    
 }
 
 /*
