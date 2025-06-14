@@ -11,7 +11,7 @@ class RemoClient {
     getSensorData() {
         const headers = {
             "Content-Type": "application/json",
-            "Authorization": this.accessToken
+            "Authorization": "Bearer " + this.accessToken
         };
 
         const options = {
