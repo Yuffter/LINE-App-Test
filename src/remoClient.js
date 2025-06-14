@@ -9,11 +9,9 @@ class RemoClient {
     https://api.nature.global/1/devicesを使用
     */
     getSensorData() {
-        const REMO_ACCESS_TOKEN = 'YOUR_ACCESS_TOKEN_HERE';  // トークンは安全に管理するのが望ましい
-
         const headers = {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + REMO_ACCESS_TOKEN
+            "Authorization": this.accessToken
         };
 
         const options = {
