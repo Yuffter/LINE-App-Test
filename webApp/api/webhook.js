@@ -43,6 +43,7 @@ async function judgeContent(replyToken, text) {
         if (text.startsWith('set temp')) {
             const temperature = text.split(' ')[2];
             if (!isNaN(temperature)) {
+                sendData('SetTemperature', { temperature: parseFloat(temperature) });
                 return await replyMessage(replyToken, `温度を${temperature}度に設定しました。`);
             } else {
                 return await replyMessage(replyToken, '温度の値が不正です。数値を入力してください。');
@@ -86,11 +87,24 @@ async function replyMessage(replyToken, message) {
 function sendData(actionType, data) {
     const url = 'https://script.google.com/macros/s/AKfycbwXFMlewVfFLpULiFmFYM4r6DmdwyJDLgfrkM-x3V01_rvrQUDOwY3XUbGJZv3TCIQ9/exec';
 
-    const dataa = {
-        "action": actionType,
-        "distance" : data.distance
-    };
-    console.log(dataa);
+    let dataa = {};
+    switch (actionType) {
+        case 'SetDistance':
+            data ={
+                "action": "SetDistance",
+                "distance": data.distance
+            };
+            break;
+        case 'SetTemperature':
+            data = {
+                "action": "SetTemperature",
+                "temperature": data.temperature
+            };
+            break;
+        default:
+            console.error("Unknown action type: " + actionType);
+            return;
+    }
 
     fetch(url, {
     method: 'POST',
