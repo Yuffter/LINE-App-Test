@@ -8,6 +8,27 @@ document.getElementById("search-coordinate").addEventListener("click", function(
           const lon = position.coords.longitude;
           // alert(`緯度: ${lat}\n経度: ${lon}`);
           showCordinate(lat, lon); // 取得した座標を表示
+
+          const url = 'https://script.google.com/macros/s/AKfycbwXFMlewVfFLpULiFmFYM4r6DmdwyJDLgfrkM-x3V01_rvrQUDOwY3XUbGJZv3TCIQ9/exec';
+          let dataa = {};
+          dataa = {
+                "action": "UpdateHomeLocation",
+                "home_latitude": data.home_latitude,
+                "home_longitude": data.home_longitude
+                };
+          
+          fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dataa)
+          })
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.error(error));
+          console.log("sendData called");
+
         },
         (error) => {
           alert("位置情報の取得に失敗しました: " + error.message);
