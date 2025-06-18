@@ -32,7 +32,7 @@ async function judgeContent(replyToken, text) {
         if (text.startsWith('set dist')) {
             const distance = text.split(' ')[2];
             if (!isNaN(distance)) {
-                return await sendData('SetDistance', { distance: parseFloat(distance) });
+                sendData('SetDistance', { distance: parseFloat(distance) });
                 return await replyMessage(replyToken, `距離を${distance}メートルに設定しました。`);
             } else {
                 return await replyMessage(replyToken, '距離の値が不正です。数値を入力してください。');
@@ -83,16 +83,16 @@ async function replyMessage(replyToken, message) {
     }
 }
 
-async function sendData(actionType, data) {
+function sendData(actionType, data) {
     const url = 'https://script.google.com/macros/s/AKfycbwm87Cgtw-vFYlUQzsKBvvzfrhmNvrsnOjPbqDX1sRq9PqKkBnRT1IWeHNtCZGffwCh/exec';
 
     const dataa = {
-    "action": actionType,
-    "distance" : data.distance
+        "action": actionType,
+        "distance" : data.distance
     };
     console.log(dataa);
 
-    return await fetch(url, {
+    fetch(url, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
