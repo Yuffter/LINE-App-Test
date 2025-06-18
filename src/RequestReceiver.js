@@ -19,11 +19,13 @@ function doPost(e) {
     switch (action) {
       case 'UpdateUserLocation':
         updateUserLocation(data);
+        console.log("updateLocation");
       case 'SetDistance':
         setDistance(data);
+        console.log("updateDistance");
       case 'SetTemperature':
         setTemperature(data);
-        
+        console.log("updateTemperature");
       default:
         return ContentService.createTextOutput('Unknown action').setMimeType(ContentService.MimeType.TEXT);
     }
