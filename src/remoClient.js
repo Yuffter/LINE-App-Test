@@ -70,7 +70,6 @@ class RemoClient {
         }
 
         let payload = {}
-        let nowTemp;
         switch (command) {
             case "ON":
                 payload = {button: 'power-on'};
