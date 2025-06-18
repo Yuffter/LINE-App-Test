@@ -9,7 +9,7 @@ document.getElementById("search-coordinate").addEventListener("click", function(
           // alert(`緯度: ${lat}\n経度: ${lon}`);
           showCordinate(lat, lon); // 取得した座標を表示
 
-          const url = 'https://script.google.com/macros/s/AKfycbwXFMlewVfFLpULiFmFYM4r6DmdwyJDLgfrkM-x3V01_rvrQUDOwY3XUbGJZv3TCIQ9/exec';
+          const url = 'https://script.google.com/macros/s/AKfycbwJZ4h5iICS1q9BObP83v1y06VpbGg9AkswKeKR0eWAsa_EciNVbZykL0R8XT9WC4ca/exec';
           let dataa = {};
 
           dataa = {
