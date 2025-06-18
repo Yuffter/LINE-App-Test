@@ -90,6 +90,10 @@ function sendData(actionType, data) {
     let dataa = {};
     switch (actionType) {
         case 'SetDistance':
+            if (data.distance < 0) {
+                console.error("Distance cannot be negative.");
+                return;
+            }
             dataa = {
                 "action": "SetDistance",
                 "distance": data.distance
