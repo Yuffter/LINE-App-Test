@@ -10,20 +10,25 @@ document.getElementById("search-coordinate").addEventListener("click", function(
           showCordinate(lat, lon); // 取得した座標を表示
 
           const url = 'https://script.google.com/macros/s/AKfycbwJZ4h5iICS1q9BObP83v1y06VpbGg9AkswKeKR0eWAsa_EciNVbZykL0R8XT9WC4ca/exec';
-          let dataa = {};
+          
+          /*let dataa = {};
 
           dataa = {
                 "action": "UpdateHomeLocation",
                 "home_latitude": lat,
                 "home_longitude": lon
-                };
+                };*/
+
+          const form = new URLSearchParams();
+          form.append("home_latitude", lat.toString());
+          form.append("home_longitude", lon.toString());
           
           fetch(url, {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/x-www-form-urlencoded'
           },
-          body: JSON.stringify(dataa)
+          body: form
           })
           .then(response => response.text())
           .then(result => console.log(result))
