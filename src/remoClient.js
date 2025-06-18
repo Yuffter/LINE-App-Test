@@ -114,14 +114,13 @@ class RemoClient {
         const appliances = JSON.parse(getResponse.getContentText());
 
         // button が "power-off"か判定(onのときは空文字列)
-        let state = 1;
         for (let appliance of appliances) {
-            if (appliance.button === "power-off") {
-                state = 0;
-                break;
+            if (appliance.nickname === "エアコン") {
+                if (appliance.settings && appliance.settings.button === "power-off") return 0; // OFF
+                else return 1; // ON (または不明 → ONとみなす)
             }
         }
 
-        return state; // on:1, off:0を返す
+        throw new Error("『エアコン』の家電が見つかりませんでした。");
     }
 }
