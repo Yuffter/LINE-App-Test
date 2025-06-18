@@ -20,21 +20,26 @@ function doPost(e) {
       case 'UpdateUserLocation':
         updateUserLocation(data);
         console.log("updateUserLocation");
-        return ContentService.createTextOutput('UserLocation updated');
+        ContentService.createTextOutput('UserLocation updated').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        break;
       case 'UpdateHomeLocation':
         updateHomeLocation(data);
         console.log("updateHomeLocation");
-        return ContentService.createTextOutput('HomeLocation updated');
+        ContentService.createTextOutput('HomeLocation updated').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        break;
       case 'SetDistance':
         setDistance(data);
         console.log("updateDistance");
-        return ContentService.createTextOutput('Distance updated');
+        ContentService.createTextOutput('Distance updated').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        break;
       case 'SetTemperature':
         setTemperature(data);
         console.log("updateTemperature");
-        return ContentService.createTextOutput('Temperature updated');
+        ContentService.createTextOutput('Temperature updated').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        break;
       default:
-        return ContentService.createTextOutput('Unknown action').setMimeType(ContentService.MimeType.TEXT);
+        ContentService.createTextOutput('Unknown action').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        break;
     }
 }
 
