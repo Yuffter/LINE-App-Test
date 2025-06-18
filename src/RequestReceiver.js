@@ -38,8 +38,8 @@ function updateUserLocation(data) {
     const latitude = data.latitude;
     const longitude = data.longitude;
 
-    spreadsheetService.writeData(Config.REMO_LATITUDE_CELL_ADDRESS(),"latitude");
-    spreadsheetService.writeData(Config.REMO_LONGITUDE_CELL_ADDRESS(),"longitude");
+    spreadsheetService.writeData(Config.REMO_LATITUDE_CELL_ADDRESS(),latitude);
+    spreadsheetService.writeData(Config.REMO_LONGITUDE_CELL_ADDRESS(),longitude);
 }
 
 /*
@@ -50,7 +50,7 @@ function setDistance(data) {
 
     const distance= data.distance;
 
-    spreadsheetService.writeData(Config.REMO_TEMPERATURE_CELL_ADDRESS(),"distance");
+    spreadsheetService.writeData(Config.REMO_TEMPERATURE_CELL_ADDRESS(),distance);
 }
 
 function setTemperature(data) {
@@ -58,5 +58,5 @@ function setTemperature(data) {
 
     const Temperature= data.temperature;
 
-    spreadsheetService.writeData(Config.REMO_HUMIDITY_CELL_ADDRESS(),"temperature");
+    spreadsheetService.writeData(Config.REMO_HUMIDITY_CELL_ADDRESS(),temperature);
 }
