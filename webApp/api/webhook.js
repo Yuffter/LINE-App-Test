@@ -85,7 +85,7 @@ async function replyMessage(replyToken, message) {
 }
 
 function sendData(actionType, data) {
-    const url = 'https://script.google.com/macros/s/AKfycbwJZ4h5iICS1q9BObP83v1y06VpbGg9AkswKeKR0eWAsa_EciNVbZykL0R8XT9WC4ca/exec';
+    const url = 'https://script.google.com/macros/s/AKfycbyctrINUJthZ_tnplfUcbhcmQ0egSR2gP9sH-d1haM9YPsJB7F35ourDnMpPFJbhkqu/exec';
 
     let dataa = {};
     switch (actionType) {
