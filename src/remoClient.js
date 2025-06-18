@@ -116,8 +116,11 @@ class RemoClient {
         // button が "power-off"か判定(onのときは空文字列)
         for (let appliance of appliances) {
             if (appliance.nickname === "エアコン") {
-                if (appliance.settings && appliance.settings.button === "power-off") return 0; // OFF
-                else return 1; // ON (または不明 → ONとみなす)
+                if (!appliance.settings || Object.keys(appliance.settings).length === 0) {
+                    return 0; // 電源OFFとみなす
+                } else {
+                    return 1; // 電源ONとみなす
+                }
             }
         }
 
