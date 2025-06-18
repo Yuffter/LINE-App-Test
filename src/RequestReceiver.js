@@ -20,27 +20,41 @@ function doPost(e) {
       case 'UpdateUserLocation':
         updateUserLocation(data);
         console.log("updateUserLocation");
-        ContentService.createTextOutput('UserLocation updated').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        responseText = 'UserLocation updated';
         break;
       case 'UpdateHomeLocation':
         updateHomeLocation(data);
         console.log("updateHomeLocation");
-        ContentService.createTextOutput('HomeLocation updated').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        responseText = 'HomeLocation updated';
         break;
       case 'SetDistance':
         setDistance(data);
         console.log("updateDistance");
-        ContentService.createTextOutput('Distance updated').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        responseText = 'Distance updated';
         break;
       case 'SetTemperature':
         setTemperature(data);
         console.log("updateTemperature");
-        ContentService.createTextOutput('Temperature updated').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        responseText = 'Temperature updated';
         break;
       default:
-        ContentService.createTextOutput('Unknown action').setMimeType(ContentService.MimeType.TEXT).setHeader("Access-Control-Allow-Origin", "*");
+        responseText = 'Unknown action';
         break;
     }
+
+    return ContentService
+      .createTextOutput(responseText)
+      .setMimeType(ContentService.MimeType.TEXT)
+      .setHeader("Access-Control-Allow-Origin", "*");
+}
+
+function doOptions(e) {
+  return ContentService
+    .createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT)
+    .setHeader("Access-Control-Allow-Origin", "*")
+    .setHeader("Access-Control-Allow-Methods", "POST, OPTIONS")
+    .setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
 /*
