@@ -32,7 +32,7 @@ async function judgeContent(replyToken, text) {
         if (text.startsWith('set dist')) {
             const distance = text.split(' ')[2];
             if (!isNaN(distance)) {
-                sendData('setDistance', { distance: parseFloat(distance) });
+                sendData('SetDistance', { distance: parseFloat(distance) });
                 return await replyMessage(replyToken, `距離を${distance}メートルに設定しました。`);
             } else {
                 return await replyMessage(replyToken, '距離の値が不正です。数値を入力してください。');
