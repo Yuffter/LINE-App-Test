@@ -32,31 +32,61 @@ class RemoClient {
     /*
     Nature Remo APIを使用してエアコンの操作を行うメソッド
     */
-    sendSignal() {
+    sendSignal(command) {  //(1,2,3,4) = on,off,up,down
         const headers = {
             "Authorization": "Bearer " + this.accessToken,
             "Content-Type": "application/json"
         };
 
-        const options = {
+        const getOptions = {
             method: "get",
             headers: headers
         };
 
         // 家電情報を取得
-        const response = UrlFetchApp.fetch("https://api.nature.global/1/appliances", options);
-        const appliances = JSON.parse(response.getContentText());
-
-        console.log(appliances);
+        const getResponse = UrlFetchApp.fetch("https://api.nature.global/1/appliances", getOptions);
+        const appliances = JSON.parse(getResponse.getContentText());
 
         // nickname が "エアコン" のものを探す
+        let applianceId = "";
         for (let appliance of appliances) {
             if (appliance.nickname === "エアコン") {
-                Logger.log("エアコンのID: " + appliance.id);
-                return appliance.id;
+                applianceId = appliance.id;
+                break;
             }
         }
+        if (applianceId == "")
+            throw new Error("nickname が『エアコン』の家電が見つかりませんでした。");
 
-        throw new Error("nickname が『エアコン』の家電が見つかりませんでした。");
+        const url = 'https://api.nature.global/1/appliances/' +applianceId + '/aircon_settings';
+
+        let payload = {}
+        let nowTemp;
+        switch (command) {
+            case 1:
+                payload = {button: 'power-on'};
+                break;
+            case 2:
+                payload = {button: 'power-off'};
+                break;
+            case 3:
+                nowTemp = SpreadSheetService.readData( Config.REMO_TEMPERATURE_CELL_ADDRESS() ); 
+                payload = {"temperature": String( Number(nowTemp) + 1 )};
+                break;
+            case 4:
+                nowTemp = SpreadSheetService.readData( Config.REMO_TEMPERATURE_CELL_ADDRESS() ); 
+                payload = {"temperature": String( Number(nowTemp) - 1 )};
+                break;
+        }
+
+        const postOptions = {
+            method: "post",
+            headers: headers,
+            payload: payload,
+            muteHttpExceptions: true
+        };
+
+        const postResponse = UrlFetchApp.fetch(url, postOptions);
+        Logger.log(postResponse.getContentText());
     }
 }
