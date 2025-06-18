@@ -19,11 +19,13 @@ function doPost(e) {
     switch (action) {
       case 'UpdateUserLocation':
         updateUserLocation(data);
+        console.log("updateLocation");
       case 'SetDistance':
         setDistance(data);
+        console.log("updateDistance");
       case 'SetTemperature':
         setTemperature(data);
-        
+        console.log("updateTemperature");
       default:
         return ContentService.createTextOutput('Unknown action').setMimeType(ContentService.MimeType.TEXT);
     }
@@ -50,13 +52,13 @@ function setDistance(data) {
 
     const distance= data.distance;
 
-    spreadsheetService.writeData(Config.REMO_TEMPERATURE_CELL_ADDRESS(),distance);
+    spreadsheetService.writeData(Config.REMO_HUMIDITY_CELL_ADDRESS(),distance);
 }
 
 function setTemperature(data) {
     const spreadsheetService = new SpreadSheetService(Config.SHEET_ID, Config.REMO_SHEET_NAME);
 
-    const Temperature= data.temperature;
+    const temperature= data.temperature;
 
-    spreadsheetService.writeData(Config.REMO_HUMIDITY_CELL_ADDRESS(),temperature);
+    spreadsheetService.writeData(Config.REMO_TEMPERATURE_CELL_ADDRESS(),temperature);
 }
