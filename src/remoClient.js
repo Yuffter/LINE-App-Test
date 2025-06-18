@@ -19,11 +19,12 @@ class RemoClient {
             headers: headers
         };
 
-        const response = UrlFetchApp.fetch("https://api.nature.global/1/devices", options);
-        const deviceData = JSON.parse(response.getContentText());
+        // 家電情報を取得
+        const getResponse = UrlFetchApp.fetch("https://api.nature.global/1/devices", options);
+        const appliances = JSON.parse(getResponse.getContentText());
 
-        const temperature = deviceData[0].newest_events.te.val;
-        const humidity = deviceData[0].newest_events.hu.val;
+        const temperature = appliances[0].newest_events.te.val;
+        const humidity = appliances[0].newest_events.hu.val;
 
         let sensorData = new SensorData(temperature, humidity)
         return sensorData;
@@ -95,5 +96,32 @@ class RemoClient {
 
         const postResponse = UrlFetchApp.fetch(url, postOptions);
         Logger.log(postResponse.getContentText());
+    }
+
+    getState() {
+        const headers = {
+            "Authorization": "Bearer " + this.accessToken,
+            "Content-Type": "application/json"
+        };
+
+        const options = {
+            method: "get",
+            headers: headers
+        };
+
+        // 家電情報を取得
+        const getResponse = UrlFetchApp.fetch("https://api.nature.global/1/appliances", options);
+        const appliances = JSON.parse(getResponse.getContentText());
+
+        // button が "power-off"か判定(onのときは空文字列)
+        let state = 1;
+        for (let appliance of appliances) {
+            if (appliance.button === "power-off") {
+                state = 0;
+                break;
+            }
+        }
+
+        return state; // on:1, off:0を返す
     }
 }
