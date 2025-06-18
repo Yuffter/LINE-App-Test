@@ -32,7 +32,7 @@ async function judgeContent(replyToken, text) {
         if (text.startsWith('set dist')) {
             const distance = text.split(' ')[2];
             if (!isNaN(distance)) {
-                sendData('SetDistance', { distance: parseFloat(distance) });
+                return await sendData('SetDistance', { distance: parseFloat(distance) });
                 return await replyMessage(replyToken, `距離を${distance}メートルに設定しました。`);
             } else {
                 return await replyMessage(replyToken, '距離の値が不正です。数値を入力してください。');
@@ -90,6 +90,7 @@ async function sendData(actionType, data) {
     "action": actionType,
     "distance" : data.distance
     };
+    console.log(dataa);
 
     return await fetch(url, {
     method: 'POST',
