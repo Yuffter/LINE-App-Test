@@ -90,13 +90,13 @@ function sendData(actionType, data) {
     let dataa = {};
     switch (actionType) {
         case 'SetDistance':
-            data ={
+            dataa = {
                 "action": "SetDistance",
                 "distance": data.distance
             };
             break;
         case 'SetTemperature':
-            data = {
+            dataa = {
                 "action": "SetTemperature",
                 "temperature": data.temperature
             };
