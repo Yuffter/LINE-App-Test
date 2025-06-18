@@ -10,14 +10,6 @@ document.getElementById("search-coordinate").addEventListener("click", function(
           showCordinate(lat, lon); // 取得した座標を表示
 
           const url = 'https://script.google.com/macros/s/AKfycbz5K4XpJp7IC-9iVaHqFk2C7542nGkqbubdhsZNGa34chaQrNBMGgcACUgdAIF-ZbcR/exec';
-          
-          /*let dataa = {};
-
-          dataa = {
-                "action": "UpdateHomeLocation",
-                "home_latitude": lat,
-                "home_longitude": lon
-                };*/
 
           const form = new URLSearchParams();
           form.append("home_latitude", lat.toString());
