@@ -101,4 +101,5 @@ async function sendData(actionType, data) {
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.error(error));
+    console.log("sendData called");
 }
