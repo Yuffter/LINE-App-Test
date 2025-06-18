@@ -87,9 +87,8 @@ async function sendData(actionType, data) {
     const url = 'https://script.google.com/macros/s/AKfycbwm87Cgtw-vFYlUQzsKBvvzfrhmNvrsnOjPbqDX1sRq9PqKkBnRT1IWeHNtCZGffwCh/exec';
 
     const dataa = {
-    "action": "UpdateUserLocation",
-    "latitude": 37.7749,
-    "longitude": -122.4194,
+    "action": actionType,
+    "distance" : data.distance
     };
 
     return await fetch(url, {
