@@ -32,11 +32,6 @@ function doPost(e) {
         console.log("updateUserLocation");
         responseText = 'UserLocation updated';
         break;
-      case 'UpdateHomeLocation':
-        updateHomeLocation(data);
-        console.log("updateHomeLocation");
-        responseText = 'HomeLocation updated';
-        break;
       case 'SetDistance':
         setDistance(data);
         console.log("updateDistance");
@@ -51,6 +46,10 @@ function doPost(e) {
         responseText = 'Unknown action';
         break;
     }
+    return ContentService
+      .createTextOutput('Error occurred')
+      .setMimeType(ContentService.MimeType.TEXT)
+    
 }
 
 /*
