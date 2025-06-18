@@ -52,7 +52,7 @@ function setDistance(data) {
 
     const distance= data.distance;
 
-    spreadsheetService.writeData(Config.REMO_HUMIDITY_CELL_ADDRESS()(),distance);
+    spreadsheetService.writeData(Config.REMO_HUMIDITY_CELL_ADDRESS(),distance);
 }
 
 function setTemperature(data) {
