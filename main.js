@@ -11,10 +11,11 @@ document.getElementById("search-coordinate").addEventListener("click", function(
 
           const url = 'https://script.google.com/macros/s/AKfycbwXFMlewVfFLpULiFmFYM4r6DmdwyJDLgfrkM-x3V01_rvrQUDOwY3XUbGJZv3TCIQ9/exec';
           let dataa = {};
+
           dataa = {
                 "action": "UpdateHomeLocation",
-                "home_latitude": data.home_latitude,
-                "home_longitude": data.home_longitude
+                "home_latitude": lat,
+                "home_longitude": lon
                 };
           
           fetch(url, {
