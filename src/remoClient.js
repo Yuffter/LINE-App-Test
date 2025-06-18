@@ -32,7 +32,7 @@ class RemoClient {
     /*
     Nature Remo APIを使用してエアコンの操作を行うメソッド
     */
-    sendSignal(command) {  //(1,2,3,4) = on,off,up,down
+    sendSignal(signal) {  //ON,OFF,number
         const headers = {
             "Authorization": "Bearer " + this.accessToken,
             "Content-Type": "application/json"
@@ -58,24 +58,32 @@ class RemoClient {
         if (applianceId == "")
             throw new Error("nickname が『エアコン』の家電が見つかりませんでした。");
 
-        const url = 'https://api.nature.global/1/appliances/' +applianceId + '/aircon_settings';
+        const url = 'https://api.nature.global/1/appliances/' + applianceId + '/aircon_settings';
+
+        let command;
+        if (signal == "ON") {
+            command = "ON";
+        } else if (signal == "OFF") {
+            command = "OFF";
+        } else {
+            command = Number(signal);
+        }
 
         let payload = {}
         let nowTemp;
         switch (command) {
-            case 1:
+            case "ON":
                 payload = {button: 'power-on'};
                 break;
-            case 2:
+            case "OFF":
                 payload = {button: 'power-off'};
                 break;
-            case 3:
-                nowTemp = SpreadSheetService.readData( Config.REMO_TEMPERATURE_CELL_ADDRESS() ); 
-                payload = {"temperature": String( Number(nowTemp) + 1 )};
-                break;
-            case 4:
-                nowTemp = SpreadSheetService.readData( Config.REMO_TEMPERATURE_CELL_ADDRESS() ); 
-                payload = {"temperature": String( Number(nowTemp) - 1 )};
+            default:
+                payload = {
+                    temperature: String(command),
+                    mode: "auto",
+                    fan: "auto",
+                };
                 break;
         }
 
