@@ -58,7 +58,7 @@ function setDistance(data) {
 function setTemperature(data) {
     const spreadsheetService = new SpreadSheetService(Config.SHEET_ID, Config.REMO_SHEET_NAME);
 
-    const Temperature= data.temperature;
+    const temperature= data.temperature;
 
     spreadsheetService.writeData(Config.REMO_HUMIDITY_CELL_ADDRESS(),temperature);
 }
