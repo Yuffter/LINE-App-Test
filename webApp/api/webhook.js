@@ -43,6 +43,7 @@ async function judgeContent(replyToken, text) {
         if (text.startsWith('set temp')) {
             const temperature = text.split(' ')[2];
             if (!isNaN(temperature)) {
+                sendData('SetTemperature', { temperature: parseFloat(temperature) });
                 return await replyMessage(replyToken, `温度を${temperature}度に設定しました。`);
             } else {
                 return await replyMessage(replyToken, '温度の値が不正です。数値を入力してください。');
@@ -83,15 +84,33 @@ async function replyMessage(replyToken, message) {
     }
 }
 
-async function sendData(actionType, data) {
-    const url = 'https://script.google.com/macros/s/AKfycbwm87Cgtw-vFYlUQzsKBvvzfrhmNvrsnOjPbqDX1sRq9PqKkBnRT1IWeHNtCZGffwCh/exec';
+function sendData(actionType, data) {
+    const url = 'https://script.google.com/macros/s/AKfycbwXFMlewVfFLpULiFmFYM4r6DmdwyJDLgfrkM-x3V01_rvrQUDOwY3XUbGJZv3TCIQ9/exec';
 
-    const dataa = {
-    "action": actionType,
-    "distance" : data.distance
-    };
+    let dataa = {};
+    switch (actionType) {
+        case 'SetDistance':
+            if (data.distance < 0) {
+                console.error("Distance cannot be negative.");
+                return;
+            }
+            dataa = {
+                "action": "SetDistance",
+                "distance": data.distance
+            };
+            break;
+        case 'SetTemperature':
+            dataa = {
+                "action": "SetTemperature",
+                "temperature": data.temperature
+            };
+            break;
+        default:
+            console.error("Unknown action type: " + actionType);
+            return;
+    }
 
-    return await fetch(url, {
+    fetch(url, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -101,4 +120,5 @@ async function sendData(actionType, data) {
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.error(error));
+    console.log("sendData called");
 }
