@@ -51,11 +51,6 @@ function doPost(e) {
         responseText = 'Unknown action';
         break;
     }
-
-    return ContentService
-      .createTextOutput(responseText)
-      .setMimeType(ContentService.MimeType.TEXT)
-      .setHeader("Access-Control-Allow-Origin", "*");
 }
 
 /*
