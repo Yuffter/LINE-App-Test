@@ -9,21 +9,18 @@ document.getElementById("search-coordinate").addEventListener("click", function(
           // alert(`緯度: ${lat}\n経度: ${lon}`);
           showCordinate(lat, lon); // 取得した座標を表示
 
-          const url = 'https://script.google.com/macros/s/AKfycbwXFMlewVfFLpULiFmFYM4r6DmdwyJDLgfrkM-x3V01_rvrQUDOwY3XUbGJZv3TCIQ9/exec';
-          let dataa = {};
+          const url = 'https://script.google.com/macros/s/AKfycby74za82LxtNIgYqE2wrBV2EtJcT_4PK0Z3tFVKv_tQqugKbEwUhFMDgycZdo40jv4y/exec';
 
-          dataa = {
-                "action": "UpdateHomeLocation",
-                "home_latitude": lat,
-                "home_longitude": lon
-                };
+          const form = new URLSearchParams();
+          form.append("home_latitude", lat.toString());
+          form.append("home_longitude", lon.toString());
           
           fetch(url, {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/x-www-form-urlencoded'
           },
-          body: JSON.stringify(dataa)
+          body: form
           })
           .then(response => response.text())
           .then(result => console.log(result))
