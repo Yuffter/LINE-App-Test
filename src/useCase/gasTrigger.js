@@ -10,6 +10,25 @@ function gasTrigger() {
 
 function calculateDistance() {
   console.log("calculateDistance called");
+  const user_spreadSheetService = new SpreadSheetService(Config.SHEET_ID, Config.USER_SHEET_NAME);
+  const remo_spreadSheetService = new SpreadSheetService(Config.SHEET_ID, Config.REMO_SHEET_NAME);
+  const userlat = user_spreadSheetService.readData(Config.USER_LATITUDE_CELL_ADDRESS);
+  const userlon = user_spreadSheetService.readData(Config.USER_LONGITUDE_CELL_ADDRESS);
+  const remolat = remo_spreadSheetService.readData(Config.REMO_LATITUDE_CELL_ADDRESS);
+  const remolon = remo_spreadSheetService.readData(Config.REMO_LONGITUDE_CELL_ADDRESS);
+  const dis = DistanceCalculator.calculateDistance(Number(userlat),Number(userlon),Number(remolat),Number(remolon));
+  const usersettingdis = user_spreadSheetService.readData(Config.USER_SETTING_DISTANCE_CELL_ADDRESS);
+  if (dis < usersettingdis){
+    const remoClient = new RemoClient(Config.REMO_ACESS_TOKEN);
+    const airConditionerController = new AirConditionerController(remoClient,remo_spreadSheetService);
+    airConditionerController.turnOn();
+  
+  }else{
+    const remoClient = new RemoClient(Config.REMO_ACESS_TOKEN);
+    const airConditionerController = new AirConditionerController(remoClient,remo_spreadSheetService);
+    airConditionerController.turnOff();
+  }
+
 }
 
 function CheckRoomTemperature() {
