@@ -21,12 +21,12 @@ function calculateDistance() {
   console.log(dis);
   if (dis < usersettingdis){
     const remoClient = new RemoClient(Config.REMO_ACESS_TOKEN);
-    const airConditionerController = new AirConditionerController(remoClient,remo_spreadSheetService);
+    const airConditionerController = new AirConditionerController(remoClient,user_spreadSheetService);
     airConditionerController.turnOn();
   
   }else{
     const remoClient = new RemoClient(Config.REMO_ACESS_TOKEN);
-    const airConditionerController = new AirConditionerController(remoClient,remo_spreadSheetService);
+    const airConditionerController = new AirConditionerController(remoClient,user_spreadSheetService);
     airConditionerController.turnOff();
   }
 
