@@ -17,6 +17,6 @@ class DistanceCalculator {
         const side2 = deltaLon * baseDistance * Math.cos(avgLatRad);
 
         const distance = Math.sqrt(Math.pow(side1, 2) + Math.pow(side2, 2));
-        return distance;
+        return distance*1000;
     }
 }
