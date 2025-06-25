@@ -12,6 +12,16 @@ function doPost(e) {
         "data" : ""
     }
     */
+  const contentType = e.postData.type;
+  if(contentType === "application/x-www-form-urlencoded"){
+    const spreadsheetService = new SpreadSheetService(Config.SHEET_ID, Config.REMO_SHEET_NAME);
+    const home_latitude = e.parameter.home_latitude;
+    const home_longitude = e.parameter.home_longitude;
+    spreadsheetService.writeData(Config.REMO_LATITUDE_CELL_ADDRESS,home_latitude);
+    spreadsheetService.writeData(Config.REMO_LONGITUDE_CELL_ADDRESS,home_longitude);
+    return;
+  }
+
     const data = JSON.parse(e.postData.contents);
     const action = data.action;
 
@@ -19,19 +29,27 @@ function doPost(e) {
     switch (action) {
       case 'UpdateUserLocation':
         updateUserLocation(data);
-        console.log("updateLocation");
-        return ContentService.createTextOutput('Location updated');
+        console.log("updateUserLocation");
+        responseText = 'UserLocation updated';
+        break;
       case 'SetDistance':
         setDistance(data);
         console.log("updateDistance");
-        return ContentService.createTextOutput('Distance updated');
+        responseText = 'Distance updated';
+        break;
       case 'SetTemperature':
         setTemperature(data);
         console.log("updateTemperature");
-        return ContentService.createTextOutput('Temperature updated');
+        responseText = 'Temperature updated';
+        break;
       default:
-        return ContentService.createTextOutput('Unknown action').setMimeType(ContentService.MimeType.TEXT);
+        responseText = 'Unknown action';
+        break;
     }
+    return ContentService
+      .createTextOutput('Error occurred')
+      .setMimeType(ContentService.MimeType.TEXT)
+    
 }
 
 /*
@@ -40,11 +58,11 @@ function doPost(e) {
 function updateUserLocation(data) {
     const spreadsheetService = new SpreadSheetService(Config.SHEET_ID, Config.USER_SHEET_NAME);
 
-    const latitude = data.latitude;
-    const longitude = data.longitude;
+    const user_latitude = data.user_latitude;
+    const user_longitude = data.user_longitude;
 
-    spreadsheetService.writeData(Config.REMO_LATITUDE_CELL_ADDRESS,latitude);
-    spreadsheetService.writeData(Config.REMO_LONGITUDE_CELL_ADDRESS,longitude);
+    spreadsheetService.writeData(Config.USER_LATITUDE_CELL_ADDRESS,user_latitude);
+    spreadsheetService.writeData(Config.USER_LONGITUDE_CELL_ADDRESS,user_longitude);
 }
 
 /*
