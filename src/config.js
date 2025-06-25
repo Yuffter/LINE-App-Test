@@ -57,9 +57,9 @@ class Config {
         return "B2";
     }
     static get REMO_HUMIDITY_CELL_ADDRESS() {
-        return "B3";
+        return "B4";
     }
     static get REMO_TEMPERATURE_CELL_ADDRESS() {
-        return "B4";
+        return "B3";
     }
 }
