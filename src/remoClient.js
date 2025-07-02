@@ -98,29 +98,32 @@ class RemoClient {
         Logger.log(postResponse.getContentText());
     }
 
-    getState() {
-        const headers = {
-            "Authorization": "Bearer " + this.accessToken,
-            "Content-Type": "application/json"
-        };
+    // getState() {
+    //     const headers = {
+    //         "Authorization": "Bearer " + this.accessToken,
+    //         "Content-Type": "application/json"
+    //     };
 
-        const options = {
-            method: "get",
-            headers: headers
-        };
+    //     const options = {
+    //         method: "get",
+    //         headers: headers
+    //     };
 
-        // 家電情報を取得
-        const getResponse = UrlFetchApp.fetch("https://api.nature.global/1/appliances", options);
-        const appliances = JSON.parse(getResponse.getContentText());
+    //     // 家電情報を取得
+    //     const getResponse = UrlFetchApp.fetch("https://api.nature.global/1/appliances", options);
+    //     const appliances = JSON.parse(getResponse.getContentText());
 
-        // button が "power-off"か判定(onのときは空文字列)
-        for (let appliance of appliances) {
-            if (appliance.nickname === "エアコン") {
-                if (appliance.settings && appliance.settings.button === "power-off") return 0; // OFF
-                else return 1; // ON (または不明 → ONとみなす)
-            }
-        }
+    //     // button が "power-off"か判定(onのときは空文字列)
+    //     for (let appliance of appliances) {
+    //         if (appliance.nickname === "エアコン") {
+    //             if (!appliance.settings || Object.keys(appliance.settings).length === 0) {
+    //                 return 0; // 電源OFFとみなす
+    //             } else {
+    //                 return 1; // 電源ONとみなす
+    //             }
+    //         }
+    //     }
 
-        throw new Error("『エアコン』の家電が見つかりませんでした。");
-    }
+    //     throw new Error("『エアコン』の家電が見つかりませんでした。");
+    // }
 }

@@ -15,6 +15,8 @@ sequenceDiagram
 	Apps Script->>スプレッドシート: ユーザーの位置情報を書き込み
 	スプレッドシート->>Apps Script: remo3とユーザーの位置情報を取得
 	Apps Script->>remo3: 電源のオン・オフをリクエスト
-	Apps Script->>LINE: 室温状態の送信をリクエスト
-	LINE->>ユーザー: 現在の室温状態を表示
+	Note over ユーザー,remo3: 別サイクルでの処理
+	LINE->>Apps Script: 設定温度、設定距離の変更
+	Apps Script->>スプレッドシート: データの書き込み
+	Apps Script->>LINE: 設定を適応したことを通知
 ```

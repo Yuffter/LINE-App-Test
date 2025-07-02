@@ -44,6 +44,9 @@ class Config {
     static get USER_SETTING_DISTANCE_CELL_ADDRESS() {
         return "B3";
     }
+    static get USER_SETTING_TEMPERATURE_CELL_ADDRESS() {
+        return "B4";
+    }
     static get USER_LINE_ID() {
         return PropertiesService.getScriptProperties().getProperty('USER_LINE_ID');
     }
@@ -54,9 +57,9 @@ class Config {
         return "B2";
     }
     static get REMO_HUMIDITY_CELL_ADDRESS() {
-        return "B3";
+        return "B4";
     }
     static get REMO_TEMPERATURE_CELL_ADDRESS() {
-        return "B4";
+        return "B3";
     }
 }
