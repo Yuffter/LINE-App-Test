@@ -18,12 +18,13 @@ function calculateDistance() {
   const remolon = remo_spreadSheetService.readData(Config.REMO_LONGITUDE_CELL_ADDRESS);
   const dis = DistanceCalculator.calculateDistance(Number(userlat),Number(userlon),Number(remolat),Number(remolon));
   const usersettingdis = user_spreadSheetService.readData(Config.USER_SETTING_DISTANCE_CELL_ADDRESS);
-  console.log(dis);
+  
+  remo_spreadSheetService.writeData("B6", dis);
+
   if (dis < usersettingdis){
     const remoClient = new RemoClient(Config.REMO_ACESS_TOKEN);
     const airConditionerController = new AirConditionerController(remoClient,user_spreadSheetService);
     airConditionerController.turnOn();
-  
   }else{
     const remoClient = new RemoClient(Config.REMO_ACESS_TOKEN);
     const airConditionerController = new AirConditionerController(remoClient,user_spreadSheetService);
