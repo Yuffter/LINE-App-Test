@@ -25,8 +25,11 @@ document.getElementById("search-coordinate").addEventListener("click", function(
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.error(error));
-          console.log("sendData called");
-
+          
+          const audio = new Audio('register.mp3');
+          audio.play().then(() => {
+            alert("自宅情報を登録しました");
+          });
         },
         (error) => {
           alert("位置情報の取得に失敗しました: " + error.message);
